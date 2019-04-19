@@ -1,0 +1,15 @@
+The correct way to go through the warm up package is the following.
+
+First create the tables by running warm up
+
+Adding a patient:
+Run SelectAllPatientsFromDoctorID
+Then run AddPatient
+Then run SelectAllPatientsFromDoctorID again, notice there is another patient
+
+Changing Doctor Departments
+Run SelectAllDoctorsFromDept
+then run ChangeDept
+then run SelectAllDoctorsFromDept again, notice that the department has another doctor
+
+Done.

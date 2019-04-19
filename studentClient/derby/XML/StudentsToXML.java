@@ -3,9 +3,9 @@ import org.apache.derby.jdbc.ClientDriver;
 import java.io.*;
 
 public class StudentsToXML {
-	public static final String OUTFILE = "students2005.xml";
+   public static final String OUTFILE = "students2005.xml";
 
-	public static void main(String[] args) {
+   public static void main(String[] args) {
 		Connection conn = null;
 		try {
 			// Step 1: connect to database server
@@ -15,35 +15,40 @@ public class StudentsToXML {
 
 			// Step 2: execute the query
 			Statement stmt = conn.createStatement();
-			String qry = "select s.SName, s.GradYear, c.Title, " + "k.YearOffered, e.Grade "
-					+ "from STUDENT s, ENROLL e, SECTION k, COURSE c "
-					+ "where s.SId=e.StudentId and e.SectionId=k.SectId " + "and k.CourseId=c.CId and s.GradYear=2005";
+			String qry = "select s.SName, s.GradYear, c.Title, "
+						+       "k.YearOffered, e.Grade "
+						+ "from STUDENT s, ENROLL e, SECTION k, COURSE c "
+						+ "where s.SId=e.StudentId and e.SectionId=k.SectId "
+						+ "and k.CourseId=c.CId and s.GradYear=2005";
 			ResultSet rs = stmt.executeQuery(qry);
 
 			Writer w = new FileWriter(OUTFILE);
 			writeXML(w, rs, "Student");
 			rs.close();
-		} catch (Exception e) {
+		}
+		catch(Exception e) {
 			e.printStackTrace();
-		} finally {
+		}
+		finally {
 			// Step 4: close the connection
 			try {
 				if (conn != null)
 					conn.close();
-			} catch (SQLException e) {
+			}
+			catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public static void writeXML(Writer w, ResultSet rs, String elementname) throws Exception {
+		public static void writeXML(Writer w, ResultSet rs, String elementname) throws Exception {
 		w.write("<" + elementname + "s>\n");
 
 		ResultSetMetaData md = rs.getMetaData();
 		int colcount = md.getColumnCount();
-		while (rs.next()) {
+		while(rs.next()) {
 			w.write("\t<" + elementname + ">\n");
-			for (int i = 1; i <= colcount; i++) {
+			for (int i=1; i<=colcount; i++) {
 				String col = md.getColumnName(i);
 				String val = rs.getString(i);
 				w.write("\t\t<" + col + ">" + val + "</" + col + ">\n");

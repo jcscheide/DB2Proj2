@@ -9,9 +9,9 @@ public class Enroll {
 	private Section section;
 
 	public Enroll(EnrollDAO dao, int eid, String grade, Student student, Section section) {
-		this.dao = dao;
-		this.eid = eid;
-		this.grade = grade;
+		this.dao     = dao;
+		this.eid     = eid;
+		this.grade   = grade;
 		this.student = student;
 		this.section = section;
 	}

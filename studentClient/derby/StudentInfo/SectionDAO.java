@@ -8,12 +8,13 @@ public class SectionDAO {
 
 	public SectionDAO(Connection conn, DatabaseManager dbm) {
 		this.conn = conn;
-		this.dbm = dbm;
+		this.dbm  = dbm;
 	}
 
 	public Section find(int sectid) {
 		try {
-			String qry = "select Prof, YearOffered, CourseId " + "from SECTION where SectId = ?";
+			String qry = "select Prof, YearOffered, CourseId "
+					   + "from SECTION where SectId = ?";
 			PreparedStatement pstmt = conn.prepareStatement(qry);
 			pstmt.setInt(1, sectid);
 			ResultSet rs = pstmt.executeQuery();
@@ -24,11 +25,12 @@ public class SectionDAO {
 
 			String prof = rs.getString("Prof");
 			int year = rs.getInt("YearOffered");
-			int courseid = rs.getInt("CourseId");
+			int courseid  = rs.getInt("CourseId");
 			rs.close();
 			Course course = dbm.findCourse(courseid);
 			return new Section(this, sectid, prof, year, course);
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error finding section", e);
 		}
@@ -40,7 +42,8 @@ public class SectionDAO {
 			if (find(sectid) != null)
 				return null;
 
-			String cmd = "insert into SECTION(SectId, Prof, YearOffered, CourseId) " + "values(?, ?, ?, ?)";
+			String cmd = "insert into SECTION(SectId, Prof, YearOffered, CourseId) "
+			           + "values(?, ?, ?, ?)";
 			PreparedStatement pstmt = conn.prepareStatement(cmd);
 			pstmt.setInt(1, sectid);
 			pstmt.setString(2, prof);
@@ -48,7 +51,8 @@ public class SectionDAO {
 			pstmt.setInt(4, course.getId());
 			pstmt.executeUpdate();
 			return new Section(this, sectid, prof, year, course);
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error inserting new section", e);
 		}
@@ -67,7 +71,8 @@ public class SectionDAO {
 			}
 			rs.close();
 			return enrollments;
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error getting section enrollments", e);
 		}
@@ -80,7 +85,8 @@ public class SectionDAO {
 			pstmt.setString(1, newprof);
 			pstmt.setInt(1, sectid);
 			pstmt.executeUpdate();
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error changing prof", e);
 		}

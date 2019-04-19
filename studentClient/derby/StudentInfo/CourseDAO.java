@@ -8,7 +8,7 @@ public class CourseDAO {
 
 	public CourseDAO(Connection conn, DatabaseManager dbm) {
 		this.conn = conn;
-		this.dbm = dbm;
+		this.dbm  = dbm;
 	}
 
 	public Course find(int cid) {
@@ -23,11 +23,12 @@ public class CourseDAO {
 				return null;
 
 			String title = rs.getString("Title");
-			int deptid = rs.getInt("DeptId");
+			int deptid   = rs.getInt("DeptId");
 			rs.close();
 			Dept dept = dbm.findDept(deptid);
 			return new Course(this, cid, title, dept);
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error finding course", e);
 		}
@@ -39,14 +40,16 @@ public class CourseDAO {
 			if (find(cid) != null)
 				return null;
 
-			String cmd = "insert into COURSE(CId, Title, DeptId) " + "values(?, ?, ?, ?)";
+			String cmd = "insert into COURSE(CId, Title, DeptId) "
+			           + "values(?, ?, ?, ?)";
 			PreparedStatement pstmt = conn.prepareStatement(cmd);
 			pstmt.setInt(1, cid);
 			pstmt.setString(2, title);
 			pstmt.setInt(3, dept.getId());
 			pstmt.executeUpdate();
 			return new Course(this, cid, title, dept);
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error inserting new course", e);
 		}
@@ -65,7 +68,8 @@ public class CourseDAO {
 			}
 			rs.close();
 			return sections;
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error getting course sections", e);
 		}
@@ -78,7 +82,8 @@ public class CourseDAO {
 			pstmt.setString(1, newtitle);
 			pstmt.setInt(1, cid);
 			pstmt.executeUpdate();
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error changing title", e);
 		}

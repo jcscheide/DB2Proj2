@@ -4,19 +4,17 @@ import java.util.*;
 @Entity
 public class Course {
 
-	@Id
-	private int cid;
-	private String title;
+    @Id private int cid;
+    private String title;
 
-	@OneToMany(mappedBy = "course")
-	private Collection<Section> sections;
+    @OneToMany(mappedBy="course")
+    private Collection<Section> sections;
 
-	@ManyToOne
-	@JoinColumn(name = "DeptId")
-	private Dept dept;
+    @ManyToOne
+    @JoinColumn(name="DeptId")
+    private Dept dept;
 
-	public Course() {
-	}
+	public Course() {}
 
 	public Course(int cid, String title, Dept dept) {
 		this.cid = cid;
@@ -24,19 +22,19 @@ public class Course {
 		this.dept = dept;
 	}
 
-	public int getId() {
-		return cid;
-	}
+    public int getId() {
+        return cid;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void changeTitle(String title) {
+    public void changeTitle(String title) {
 		this.title = title;
 	}
 
-	public Dept getDept() {
+    public Dept getDept() {
 		return dept;
 	}
 

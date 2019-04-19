@@ -3,11 +3,11 @@ import org.apache.derby.jdbc.ClientDriver;
 import java.io.*;
 
 public class SQLInterpreter {
-	private static Connection conn = null;
+    private static Connection conn = null;
 
-	public static void main(String[] args) {
-		try {
-			Driver d = new ClientDriver();
+    public static void main(String[] args) {
+	   try {
+ 		    Driver d = new ClientDriver();
 			String url = "jdbc:derby://localhost/studentdb";
 			conn = d.connect(url, null);
 
@@ -25,14 +25,17 @@ public class SQLInterpreter {
 					doQuery(cmd);
 				else
 					doUpdate(cmd);
-			}
-		} catch (Exception e) {
+		    }
+	    }
+	    catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		}
+		finally {
 			try {
 				if (conn != null)
 					conn.close();
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -40,27 +43,27 @@ public class SQLInterpreter {
 
 	private static void doQuery(String cmd) {
 		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(cmd);
-			ResultSetMetaData md = rs.getMetaData();
-			int numcols = md.getColumnCount();
-			int totalwidth = 0;
+		    Statement stmt = conn.createStatement();
+		    ResultSet rs = stmt.executeQuery(cmd);
+		    ResultSetMetaData md = rs.getMetaData();
+		    int numcols = md.getColumnCount();
+		    int totalwidth = 0;
 
-			// print header
-			for (int i = 1; i <= numcols; i++) {
+		    // print header
+		    for(int i=1; i<=numcols; i++) {
 				int width = md.getColumnDisplaySize(i);
 				totalwidth += width;
 				String fmt = "%" + width + "s";
 				System.out.format(fmt, md.getColumnName(i));
 			}
 			System.out.println();
-			for (int i = 0; i < totalwidth; i++)
-				System.out.print("-");
-			System.out.println();
+			for(int i=0; i<totalwidth; i++)
+			    System.out.print("-");
+		    System.out.println();
 
-			// print records
-			while (rs.next()) {
-				for (int i = 1; i <= numcols; i++) {
+		    // print records
+		    while(rs.next()) {
+				for (int i=1; i<=numcols; i++) {
 					String fldname = md.getColumnName(i);
 					int fldtype = md.getColumnType(i);
 					String fmt = "%" + md.getColumnDisplaySize(i);
@@ -72,7 +75,8 @@ public class SQLInterpreter {
 				System.out.println();
 			}
 			rs.close();
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			System.out.println("SQL Exception: " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -80,10 +84,11 @@ public class SQLInterpreter {
 
 	private static void doUpdate(String cmd) {
 		try {
-			Statement stmt = conn.createStatement();
-			int howmany = stmt.executeUpdate(cmd);
-			System.out.println(howmany + " records processed");
-		} catch (SQLException e) {
+		    Statement stmt = conn.createStatement();
+		    int howmany = stmt.executeUpdate(cmd);
+		    System.out.println(howmany + " records processed");
+		}
+		catch (SQLException e) {
 			System.out.println("SQL Exception: " + e.getMessage());
 			e.printStackTrace();
 		}

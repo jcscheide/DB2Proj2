@@ -9,8 +9,8 @@ public class Dept {
 	private Collection<Course> courses = null;
 
 	public Dept(DeptDAO dao, int did, String dname) {
-		this.dao = dao;
-		this.did = did;
+		this.dao   = dao;
+		this.did   = did;
 		this.dname = dname;
 	}
 
@@ -23,8 +23,8 @@ public class Dept {
 	}
 
 	public void changeName(String newname) {
-		dname = newname;
-		dao.changeName(did, newname);
+			dname = newname;
+			dao.changeName(did, newname);
 	}
 
 	public Collection<Student> getMajors() {

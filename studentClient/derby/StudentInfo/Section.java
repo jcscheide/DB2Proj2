@@ -9,11 +9,11 @@ public class Section {
 	private Collection<Enroll> enrollments = null;
 
 	public Section(SectionDAO dao, int sectid, String prof, int year, Course course) {
-		this.dao = dao;
-		this.sectid = sectid;
-		this.prof = prof;
-		this.year = year;
-		this.course = course;
+		this.dao     = dao;
+		this.sectid  = sectid;
+		this.prof    = prof;
+		this.year    = year;
+		this.course  = course;
 	}
 
 	public int getId() {

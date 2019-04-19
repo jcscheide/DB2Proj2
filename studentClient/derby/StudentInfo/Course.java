@@ -9,10 +9,10 @@ public class Course {
 	private Collection<Section> sections = null;
 
 	public Course(CourseDAO dao, int cid, String title, Dept dept) {
-		this.dao = dao;
-		this.cid = cid;
+		this.dao   = dao;
+		this.cid   = cid;
 		this.title = title;
-		this.dept = dept;
+		this.dept  = dept;
 	}
 
 	public int getId() {

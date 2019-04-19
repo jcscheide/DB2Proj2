@@ -4,20 +4,18 @@ import java.util.*;
 @Entity
 public class Enroll {
 
-	@Id
-	private int eid;
-	private String grade = null;
+    @Id private int eid;
+    private String grade = null;
 
-	@ManyToOne
-	@JoinColumn(name = "StudentId")
-	private Student student;
+    @ManyToOne
+    @JoinColumn(name="StudentId")
+    private Student student;
 
-	@ManyToOne
-	@JoinColumn(name = "SectionId")
-	private Section section;
+    @ManyToOne
+    @JoinColumn(name="SectionId")
+    private Section section;
 
-	public Enroll() {
-	}
+	public Enroll() {}
 
 	public Enroll(int eid, Student student, Section section) {
 		this.eid = eid;
@@ -25,19 +23,19 @@ public class Enroll {
 		this.section = section;
 	}
 
-	public int getId() {
-		return eid;
-	}
+    public int getId() {
+        return eid;
+    }
 
-	public Student getStudent() {
-		return student;
-	}
+    public Student getStudent() {
+        return student;
+    }
 
 	public Section getSection() {
-		return section;
-	}
+        return section;
+    }
 
-	public String getGrade() {
+    public String getGrade() {
 		return grade;
 	}
 

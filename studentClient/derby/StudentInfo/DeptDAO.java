@@ -8,7 +8,7 @@ public class DeptDAO {
 
 	public DeptDAO(Connection conn, DatabaseManager dbm) {
 		this.conn = conn;
-		this.dbm = dbm;
+		this.dbm  = dbm;
 	}
 
 	public Dept find(int did) {
@@ -25,7 +25,8 @@ public class DeptDAO {
 			String dname = rs.getString("DName");
 			rs.close();
 			return new Dept(this, did, dname);
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error finding department", e);
 		}
@@ -43,7 +44,8 @@ public class DeptDAO {
 			pstmt.setString(2, dname);
 			pstmt.executeUpdate();
 			return new Dept(this, did, dname);
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error inserting new department", e);
 		}
@@ -62,7 +64,8 @@ public class DeptDAO {
 			}
 			rs.close();
 			return majors;
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error getting student majors", e);
 		}
@@ -81,7 +84,8 @@ public class DeptDAO {
 			}
 			rs.close();
 			return courses;
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error getting offered courses", e);
 		}
@@ -94,7 +98,8 @@ public class DeptDAO {
 			pstmt.setString(1, newname);
 			pstmt.setInt(1, did);
 			pstmt.executeUpdate();
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error changing department name", e);
 		}

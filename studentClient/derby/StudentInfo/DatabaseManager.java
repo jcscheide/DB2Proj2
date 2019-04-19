@@ -4,24 +4,25 @@ import org.apache.derby.jdbc.ClientDriver;
 public class DatabaseManager {
 	private Connection conn;
 	private StudentDAO studentDAO;
-	private DeptDAO deptDAO;
-	private EnrollDAO enrollDAO;
+	private DeptDAO    deptDAO;
+	private EnrollDAO  enrollDAO;
 	private SectionDAO sectionDAO;
-	private CourseDAO courseDAO;
+	private CourseDAO  courseDAO;
 
 	public DatabaseManager() {
-		try {
+    	try {
 			Driver d = new ClientDriver();
 			String url = "jdbc:derby://localhost/studentdb";
 			conn = d.connect(url, null);
 			conn.setAutoCommit(false);
 
 			studentDAO = new StudentDAO(conn, this);
-			deptDAO = new DeptDAO(conn, this);
-			enrollDAO = new EnrollDAO(conn, this);
+			deptDAO    = new DeptDAO(conn, this);
+			enrollDAO  = new EnrollDAO(conn, this);
 			sectionDAO = new SectionDAO(conn, this);
-			courseDAO = new CourseDAO(conn, this);
-		} catch (SQLException e) {
+			courseDAO  = new CourseDAO(conn, this);
+		}
+		catch(SQLException e) {
 			throw new RuntimeException("cannot connect to database", e);
 		}
 	}
@@ -29,7 +30,8 @@ public class DatabaseManager {
 	public void commit() {
 		try {
 			conn.commit();
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			throw new RuntimeException("cannot commit database", e);
 		}
 	}
@@ -37,7 +39,8 @@ public class DatabaseManager {
 	public void close() {
 		try {
 			conn.close();
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			throw new RuntimeException("cannot close database", e);
 		}
 	}
@@ -86,7 +89,8 @@ public class DatabaseManager {
 		try {
 			conn.rollback();
 			conn.close();
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			System.out.println("fatal error: cannot cleanup connection");
 		}
 	}

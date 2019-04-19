@@ -2,7 +2,7 @@ import java.sql.*;
 import org.apache.derby.jdbc.ClientDriver;
 
 public class ChangeMajor {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		Connection conn = null;
 		try {
 			Driver d = new ClientDriver();
@@ -12,13 +12,16 @@ public class ChangeMajor {
 
 			stmt.executeUpdate("update STUDENT set MajorId=30 where SName='amy'");
 			System.out.println("Amy is now a drama major.");
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}
+		finally {
 			try {
 				if (conn != null)
 					conn.close();
-			} catch (SQLException e) {
+			}
+			catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}

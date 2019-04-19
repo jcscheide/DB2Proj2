@@ -8,7 +8,7 @@ public class StudentDAO {
 
 	public StudentDAO(Connection conn, DatabaseManager dbm) {
 		this.conn = conn;
-		this.dbm = dbm;
+		this.dbm  = dbm;
 	}
 
 	public Student find(int sid) {
@@ -24,12 +24,13 @@ public class StudentDAO {
 
 			String sname = rs.getString("SName");
 			int gradyear = rs.getInt("GradYear");
-			int majorid = rs.getInt("MajorId");
+			int majorid  = rs.getInt("MajorId");
 			rs.close();
 
 			Dept major = dbm.findDept(majorid);
 			return new Student(this, sid, sname, gradyear, major);
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error finding student", e);
 		}
@@ -41,7 +42,8 @@ public class StudentDAO {
 			if (find(sid) != null)
 				return null;
 
-			String cmd = "insert into STUDENT(SId, SName, GradYear, MajorId) " + "values(?, ?, ?, ?)";
+			String cmd = "insert into STUDENT(SId, SName, GradYear, MajorId) "
+			           + "values(?, ?, ?, ?)";
 			PreparedStatement pstmt = conn.prepareStatement(cmd);
 			pstmt.setInt(1, sid);
 			pstmt.setString(2, sname);
@@ -49,7 +51,8 @@ public class StudentDAO {
 			pstmt.setInt(4, major.getId());
 			pstmt.executeUpdate();
 			return new Student(this, sid, sname, gradyear, major);
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error inserting new student", e);
 		}
@@ -68,7 +71,8 @@ public class StudentDAO {
 			}
 			rs.close();
 			return enrollments;
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error getting student enrollments", e);
 		}
@@ -81,7 +85,8 @@ public class StudentDAO {
 			pstmt.setInt(1, newyear);
 			pstmt.setInt(2, sid);
 			pstmt.executeUpdate();
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error changing grad year", e);
 		}
@@ -94,7 +99,8 @@ public class StudentDAO {
 			pstmt.setInt(1, newmajor.getId());
 			pstmt.setInt(2, sid);
 			pstmt.executeUpdate();
-		} catch (SQLException e) {
+		}
+		catch(SQLException e) {
 			dbm.cleanup();
 			throw new RuntimeException("error changing major", e);
 		}

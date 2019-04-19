@@ -4,16 +4,21 @@ import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+
 public class ServletFindMajorsInputForm extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title> Find Majors </title>");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<form method=\"get\" " + "action=\"/studentdb/ServletFindMajors\">");
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+        throws IOException, ServletException
+    {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head>");
+	    out.println("<title> Find Majors </title>");
+        out.println("</head>");
+        out.println("<body>");
+		out.println("<form method=\"get\" "
+				        + "action=\"/studentdb/ServletFindMajors\">");
 		out.println("Enter major:");
 		out.println("<select name=\"major\">");
 
@@ -32,25 +37,32 @@ public class ServletFindMajorsInputForm extends HttpServlet {
 			// Step 3: loop through the result set
 			while (rs.next()) {
 				String dname = rs.getString("DName");
-				out.println("<option value=\"" + dname + "\">" + dname + "</option>");
+				out.println("<option value=\"" + dname + "\">"
+				            + dname + "</option>");
 			}
 			rs.close();
 			out.println("</select>");
 			out.println("<p><input type=\"submit\" value=\"Find Majors\">");
 			out.println("</form>");
-		} catch (Exception e) {
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			out.println("SQL Exception. Execution aborted");
-		} finally {
-			out.println("</body>");
-			out.println("</html>");
+		}
+		finally {
+	        out.println("</body>");
+	        out.println("</html>");
 			try {
 				if (conn != null)
 					conn.close();
-			} catch (SQLException e) {
+			}
+			catch (SQLException e) {
 				e.printStackTrace();
 				out.println("Could not close database");
 			}
 		}
-	}
+    }
 }
+
+
+
