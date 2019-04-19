@@ -1,0 +1,17 @@
+/buffer/
+/derby/
+/file/
+/index/
+/log/
+/materialize/
+/metadata/
+/multibuffer/
+/opt/
+/parse/
+/planner/
+/query/
+/record/
+/remote/
+/server/
+/simpledb/
+/tx/

@@ -6,15 +6,26 @@ package parse;
  * @author Edward Sciore
  */
 public class CreateIndexData {
-	private String idxname, tblname, fldname;
+	private String indexType, idxname, tblname, fldname;
 
 	/**
 	 * Saves the table and field names of the specified index.
+	 * @param fldname2 
 	 */
-	public CreateIndexData(String idxname, String tblname, String fldname) {
+	public CreateIndexData(String indexType, String idxname, String tblname, String fldname) {
+		this.indexType = indexType;
 		this.idxname = idxname;
 		this.tblname = tblname;
 		this.fldname = fldname;
+	}
+	
+	/**
+	 * Returns the type of the index
+	 * 
+	 * @return the type of the index
+	 */
+	public String indexType(){
+		return indexType;
 	}
 
 	/**
