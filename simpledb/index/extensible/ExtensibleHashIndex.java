@@ -1,4 +1,4 @@
-package metadata;
+package index.extensible;
 
 import index.Index;
 import query.Constant;

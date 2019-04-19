@@ -8,6 +8,7 @@ import record.*;
 import index.Index;
 import index.hash.HashIndex;
 import index.btree.BTreeIndex; //in case we change to btree indexing
+import index.extensible.ExtensibleHashIndex;
 
 /**
  * The information about an index. This information is used by the query planner
