@@ -39,18 +39,22 @@ public class IndexMgr {
 	 * ID is assigned to this index, and its information is stored in the idxcat
 	 * table.
 	 * 
+	 * @param indextype
+	 * 			  the type of the index
 	 * @param idxname
 	 *            the name of the index
 	 * @param tblname
 	 *            the name of the indexed table
 	 * @param fldname
 	 *            the name of the indexed field
+	 * @param fldname2 
 	 * @param tx
 	 *            the calling transaction
 	 */
-	public void createIndex(String idxname, String tblname, String fldname, Transaction tx) {
+	public void createIndex(String indexType, String idxname, String tblname, String fldname, Transaction tx) {
 		RecordFile rf = new RecordFile(ti, tx);
 		rf.insert();
+		rf.setString("indextype", indexType);
 		rf.setString("indexname", idxname);
 		rf.setString("tablename", tblname);
 		rf.setString("fieldname", fldname);
@@ -72,9 +76,10 @@ public class IndexMgr {
 		RecordFile rf = new RecordFile(ti, tx);
 		while (rf.next())
 			if (rf.getString("tablename").equals(tblname)) {
+				String indextype = rf.getString("indextype");
 				String idxname = rf.getString("indexname");
 				String fldname = rf.getString("fieldname");
-				IndexInfo ii = new IndexInfo(idxname, tblname, fldname, tx);
+				IndexInfo ii = new IndexInfo(indextype, idxname, tblname, fldname, tx);
 				result.put(fldname, ii);
 			}
 		rf.close();

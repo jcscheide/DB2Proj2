@@ -17,7 +17,7 @@ import index.btree.BTreeIndex; //in case we change to btree indexing
  * @author Edward Sciore
  */
 public class IndexInfo {
-	private String idxname, fldname;
+	private String idxname, fldname, indextype;
 	private Transaction tx;
 	private TableInfo ti;
 	private StatInfo si;
@@ -25,16 +25,20 @@ public class IndexInfo {
 	/**
 	 * Creates an IndexInfo object for the specified index.
 	 * 
+	 * @param indextype
+	 * 			  the type of the index
 	 * @param idxname
 	 *            the name of the index
 	 * @param tblname
 	 *            the name of the table
 	 * @param fldname
 	 *            the name of the indexed field
+	 * @param fldname2 
 	 * @param tx
 	 *            the calling transaction
 	 */
-	public IndexInfo(String idxname, String tblname, String fldname, Transaction tx) {
+	public IndexInfo(String indextype, String idxname, String tblname, String fldname, Transaction tx) {
+		this.indextype = indextype;
 		this.idxname = idxname;
 		this.fldname = fldname;
 		this.tx = tx;
@@ -50,8 +54,14 @@ public class IndexInfo {
 	public Index open() {
 		Schema sch = schema();
 		// Create new HashIndex for hash indexing
-		return new HashIndex(idxname, sch, tx);
-	}
+		
+		if(indextype.equals("bt"))
+			return new BTreeIndex(idxname,sch,tx);
+		else if(indextype.equals("eh"))
+			return new ExtensibleHashIndex(idxname,sch,tx);
+		else
+			return new HashIndex(idxname, sch, tx);
+	} 
 
 	/**
 	 * Estimates the number of block accesses required to find all index records
