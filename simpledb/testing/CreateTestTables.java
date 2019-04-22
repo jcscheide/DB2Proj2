@@ -26,15 +26,15 @@ public class CreateTestTables {
 		try {
 			conn = d.connect(url, null);
 			s=conn.createStatement();
-			s.executeUpdate("Create table test1" + "( a1 int," + "  a2 int"+ ")");
-			s.executeUpdate("Create table test2" + "( a1 int," + "  a2 int"+ ")");
-			s.executeUpdate("Create table test3" + "( a1 int," + "  a2 int"+ ")");
-			s.executeUpdate("Create table test4" + "( a1 int," + "  a2 int"+ ")");
-			s.executeUpdate("Create table test5" + "( a1 int," + "  a2 int"+ ")");
+			s.executeUpdate("Create table test1" + "( a1 int," + "  a2 int" + ")");
+			s.executeUpdate("Create table test2" + "( a1 int," + "  a2 int" + ")");
+			s.executeUpdate("Create table test3" + "( a1 int," + "  a2 int" + ")");
+			s.executeUpdate("Create table test4" + "( a1 int," + "  a2 int" + ")");
+			s.executeUpdate("Create table test5" + "( a1 int," + "  a2 int" + ")");
 			
 			
 
-//			s.executeUpdate("create sh index idx1 on test1 (a1)");
+			s.executeUpdate("create sh index idx1 on test1 (a1)");
 //			s.executeUpdate("create ex index idx2 on test2 (a1)");
 //			s.executeUpdate("create bt index idx3 on test3 (a1)");
 			for(int i=1;i<6;i++)
