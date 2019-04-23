@@ -1,21 +1,5 @@
-<<<<<<< HEAD
-/testing/
-=======
-/buffer/
 /derby/
-/file/
-/index/
-/log/
-/materialize/
-/metadata/
-/multibuffer/
-/opt/
-/parse/
-/planner/
-/query/
-/record/
-/remote/
-/server/
 /simpledb/
-/tx/
->>>>>>> 7ae34193e2be4837b4326bfae9bd828d4ed3fac5
+/testing/
+/index/
+/metadata/
